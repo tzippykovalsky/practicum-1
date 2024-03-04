@@ -1,6 +1,6 @@
 import { User } from "./userModel.js";
 
-export const createUser = async (req, res) => {
+export const addUser = async (req, res) => {
 
     let { userName, email, phone } = req.body;
     if (!userName || !email || !phone)
@@ -8,7 +8,7 @@ export const createUser = async (req, res) => {
 
     try {
 
-        let findUser = User.find({ userName, emmail, phone });
+        let findUser = User.find({ userName, email, phone });
         if (findUser.length > 0)
             return res.status(409).send("this user already exists");
         let newUser = await User.create({ userName, email, phone });
@@ -49,5 +49,19 @@ export const deleteUser = async (req, res) => {
     catch(err){
         return res.status(400).send("an error occurred " + err);
 
+    }
+}
+
+
+export const getUserById=async(req,res)=>{
+    let {id}=req.params;
+    try{
+     let user=await User.findById(id)
+     if(!user)
+     return res.status(404).send("not such user found")
+    return res.json(user).status(200)
+    }
+    catch(err){
+        return res.status(400).send("an error occurred " + err);
     }
 }
