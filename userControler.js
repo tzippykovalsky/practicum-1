@@ -36,6 +36,7 @@ export const updateUser = async (req, res) => {
         return res.status(400).send("an error occurred " + err);
     }
 }
+ 
 
 export const deleteUser = async (req, res) => {
     let { id } = req.params;
