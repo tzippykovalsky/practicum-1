@@ -1,4 +1,5 @@
-import { User } from "./userModel.js";
+import { User, userValidator, userValidatorWithOutEmail } from "./userModel.js";
+
 
 export const addUser = async (req, res) => {
 
@@ -43,7 +44,7 @@ export const updateUser = async (req, res) => {
                 return res.status(400).send(validate.error.details);
         }
         else {
-            validate = minUserValidator({ userName, phone });
+            validate = userValidatorWithOutEmail({ userName, phone });
             if (validate.error)
                 return res.status(400).send(validate.error.details);
         }
