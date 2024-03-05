@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
 import userRouter from "./userRouts.js";
+import { connectToDB } from "./config.js";
+
 
 const app = express();
 
-
+connectToDB();
 
 app.use(cors)
 app.use(express.json())
