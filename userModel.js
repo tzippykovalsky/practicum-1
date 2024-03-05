@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
 export const User = mongoose.model("users", userSchema);
 
 export const userValidator = (userToValidate) => {
-    let user = Joi.object({
+    let userJoi = Joi.object({
         userName: Joi.string().required(),
         email: Joi.string().email().custom((value, helpers) => {
             if (value.includes(' ')) {
@@ -22,11 +22,13 @@ export const userValidator = (userToValidate) => {
         }).required(),
         phone: Joi.string().required()
     })
+    return userJoi.validate(userToValidate);
 }
 
 export const userValidatorWithOutEmail = (userToValidate) => {
-    let user = Joi.object({
+    let userJoi = Joi.object({
         userName: Joi.string().required(),
         phone: Joi.string().required()
     })
+    return userJoi.validate(userToValidate);
 }
